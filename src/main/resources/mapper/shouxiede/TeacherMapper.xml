@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mzd.springboot_web_jsp.mapper.TeacherMapper">
+    <resultMap id="teacherandstudent" type="com.mzd.springboot_web_jsp.bean.Teacher" autoMapping="true">
+        <result column="teaid" property="teaid" jdbcType="VARCHAR"/>
+        <result column="teaname" property="teaname" jdbcType="VARCHAR"/>
+        <collection property="list" ofType="com.mzd.springboot_web_jsp.bean.generator.Student">
+            <result column="stuid" property="stuid" jdbcType="VARCHAR"/>
+            <result column="stuname" property="stuname" jdbcType="VARCHAR"/>
+            <result column="stusex" property="stusex" jdbcType="VARCHAR"/>
+            <result column="stutel" property="stutel" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+    <select id="selectteacherM" resultMap="teacherandstudent">
+        select * from teacher t LEFT JOIN student s on t.stuid=s.stuid WHERE t.teaid=#{teaid};
+    </select>
+</mapper>
